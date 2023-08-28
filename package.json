@@ -1,0 +1,14 @@
+{
+  "name": "image-merger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "h00z3x",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.11.2"
+  }
+}
