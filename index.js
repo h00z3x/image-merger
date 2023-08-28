@@ -1,6 +1,7 @@
 var images = [];
 const fs = require('node:fs').promises;
 const { createCanvas, loadImage, Image } = require('canvas');
+const config = require('./config.json');
 
 main(images);
 
@@ -19,8 +20,8 @@ async function main(images) {
     */
     path.sort((a, b) => {
 
-        let value_a = parseInt(a.split("_")[1]);
-        let value_b = parseInt(b.split("_")[1]);
+        let value_a = parseInt(a.split(config.SplitWith)[1]);
+        let value_b = parseInt(b.split(config.SplitWith)[1]);
 
         if (value_a > value_b) {
             return 1;
@@ -37,11 +38,12 @@ async function main(images) {
         images.push(image);
     }
 
-    var folder = path[0].split("_")[0];
-    fs.mkdir(folder);
-
     if (images.length > 0) {
-        const chunkSize = 30;
+
+        var folder = path[0].split(config.SplitWith)[0];
+        fs.mkdir(folder);
+
+        const chunkSize = config.chunkSize;
         const chunks = [];
 
         for (let i = 0; i < images.length; i += chunkSize) {
@@ -83,5 +85,7 @@ async function main(images) {
         path.map((value) => {
             fs.unlink(`./images/${value}`);
         })
+    } else {
+        console.log("The Folder Is Empty!");
     }
 }
